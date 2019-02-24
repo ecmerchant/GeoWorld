@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ジオワールド</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= favicon_link_tag() %>
+
+    <style type="text/css">
+    .bs-component + .bs-component {
+      margin-top: 1rem;
+    }
+    @media (min-width: 768px) {
+      .bs-docs-section {
+        margin-top: 8em;
+      }
+      .bs-component {
+        position: relative;
+      }
+      .bs-component .modal {
+        position: relative;
+        top: auto;
+        right: auto;
+        bottom: auto;
+        left: auto;
+        z-index: 1;
+        display: block;
+      }
+      .bs-component .modal-dialog {
+        width: 90%;
+      }
+      .bs-component .popover {
+        position: relative;
+        display: inline-block;
+        width: 220px;
+        margin: 20px;
+      }
+      .nav-tabs {
+        margin-bottom: 15px;
+      }
+      .progress {
+        margin-bottom: 10px;
+      }
+
+      table {
+        font-size: 11pt;
+        width: 100%;
+        display: block;
+        white-space: nowrap;
+      }
+
+      th {
+        text-align:center;
+      }
+
+      td {
+        text-align:center;
+      }
+
+      .td_vertical_align_middle.td_vertical_align_middle {
+        vertical-align: middle;
+      }
+
+    }
+    </style>
+  </head>
+
+  <body>
+    <% if @login_user != nil then %>
+    <header class="sticky-top">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/lists/setup">ホーム <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a href="/accounts/setup" class="nav-link">アカウント設定</a>
+              </li>
+              <li class="nav-item">
+                <a href="/accounts/setup" class="nav-link">スケジュール設定</a>
+              </li>
+              <li class="nav-item">
+                <a href="/users/sign_out" class="nav-link">ログアウト</a>
+              </li>
+              <% if @login_user != nil then %>
+              <% if @login_user.admin_flg == true then %>
+              <li class="nav-item">
+                <a href="/admin" class="nav-link">管理者</a>
+              </li>
+              <% end %>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <% end %>
+    <%= yield %>
+    <script type="text/javascript">
+      $('.bs-component [data-toggle="popover"]').popover();
+      $('.bs-component [data-toggle="tooltip"]').tooltip();
+    </script>
+  </body>
+</html>
