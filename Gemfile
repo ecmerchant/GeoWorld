@@ -90,3 +90,6 @@ gem 'rubyXL'
 # gem for pagination
 gem 'kaminari'
 gem 'kaminari-bootstrap'
+
+# gem for clock process
+gem 'clockwork'

@@ -60,7 +60,10 @@ class ListsController < ApplicationController
         if ext == ".txt" then
           File.open(data.path, 'r', encoding: 'Windows-31J', undef: :replace, replace: '*') do |file|
             body = file.read
-            List.create_or_update(user: user, list_type: list_type, body: body, list_num: list_num)
+            t = List.find_or_create_by(user: user, list_type: list_type, list_num: list_num)
+            t.update(
+              body: body,
+            )
           end
           @account.update(
             list_num: list_num,
@@ -68,7 +71,7 @@ class ListsController < ApplicationController
           )
         end
       else
-        if params[:commit] == "データ選択" then
+        if params[:commit] == "実行データ選択" then
           if list_type == "新規出品" then
             @account.update(
               select_new: list_num

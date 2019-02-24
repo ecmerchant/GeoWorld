@@ -1,6 +1,11 @@
 class FeedUploadJob < ApplicationJob
   queue_as :feed_upload
 
+  rescue_from(StandardError) do |exception|
+    logger.debug("===== Standard Error Escape Active Job =====")
+    logger.error exception
+  end
+  
   def perform(user, list_type)
     account = Account.find_by(user: user)
     if account == nil then return end

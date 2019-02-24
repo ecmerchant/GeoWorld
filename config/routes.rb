@@ -2,6 +2,9 @@ require 'resque/server'
 
 Rails.application.routes.draw do
 
+  get 'schedules/setup'
+  post 'schedules/setup'
+
   get 'lists/setup'
   post 'lists/setup'
 
