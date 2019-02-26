@@ -18,11 +18,16 @@
             </thead>
             <tbody>
               <% for int in 1..10 do %>
+              <% tg = @schedules.find_or_create_by(schedule_num: int) %>
               <tr>
                 <td class="td_vertical_align_middle"><%= int %><%= hidden_field_tag 'shcedule_num[' + int.to_s + ']', int %></td>
-                <td class="td_vertical_align_middle"><%= select_tag 'list_type[' + int.to_s + ']',  options_for_select(["","新規出品", "出品削除"], @schedules.find_or_create_by(schedule_num: int).list_type), class:'form-control' %></td>
-                <td class="td_vertical_align_middle"><%= select_tag 'schedule_type[' + int.to_s + ']',  options_for_select(["毎日", "平日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日", "日曜日"], @schedules.find_or_create_by(schedule_num: int).schedule_type), class:'form-control' %></td>
-                <td class="td_vertical_align_middle form-inline"><%= time_select 'set_time[' + int.to_s + ']',   @schedules.find_or_create_by(schedule_num: int).set_time, {minute_step: 5} , class:'form-control', style:'width:70px;' %></td>
+                <td class="td_vertical_align_middle"><%= select_tag 'list_type[' + int.to_s + ']',  options_for_select(["","新規出品", "出品削除"], tg.list_type), class:'form-control' %></td>
+                <td class="td_vertical_align_middle"><%= select_tag 'schedule_type[' + int.to_s + ']',  options_for_select(["毎日", "平日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日", "日曜日"], tg.schedule_type), class:'form-control' %></td>
+                <% if tg.set_time != nil then %>
+                <td class="td_vertical_align_middle form-inline"><%= time_select 'set_time[' + int.to_s + ']', nil, {minute_step: 5, :default => {:hour => tg.set_time.hour, :minute => tg.set_time.min}} , class:'form-control', style:'width:70px;' %></td>
+                <% else %>
+                <td class="td_vertical_align_middle form-inline"><%= time_select 'set_time[' + int.to_s + ']', nil, {minute_step: 5, :default => {:hour => '8', :minute => '0'}} , class:'form-control', style:'width:70px;' %></td>
+                <% end %>
               </tr>
               <% end %>
             </tbody>
