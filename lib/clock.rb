@@ -6,7 +6,7 @@ Bundler.require
 
 include Clockwork
 
-user = "murakami@ec-merchant.com"
+user = "jyutakumap2@gmail.com"
 
 targets = Schedule.where(user: user)
 
