@@ -7,11 +7,12 @@
           <div class="actions">
             <%= submit_tag '設定する', class: 'btn btn-info', style: 'margin-right:20px;' %>
           </div><br>
-          <table class="table table-striped table-hover table-bordered" style='width:600px; table-layout:fixed;'>
+          <table class="table table-striped table-hover table-bordered" style='width:700px; table-layout:fixed;'>
             <thead class="thead-light">
               <tr>
                 <th style='width:100px;'>番号</th>
                 <th style='width:150px;'>ファイルタイプ</th>
+                <th style='width:150px;'>ファイル番号</th>
                 <th style='width:120px;'>実行タイミング</th>
                 <th style='width:230px;'>実行時間</th>
               </tr>
@@ -22,6 +23,7 @@
               <tr>
                 <td class="td_vertical_align_middle"><%= int %><%= hidden_field_tag 'shcedule_num[' + int.to_s + ']', int %></td>
                 <td class="td_vertical_align_middle"><%= select_tag 'list_type[' + int.to_s + ']',  options_for_select(["","新規出品", "出品削除"], tg.list_type), class:'form-control' %></td>
+                <td class="td_vertical_align_middle"><%= select_tag 'list_num[' + int.to_s + ']',  options_for_select([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], tg.list_num), class:'form-control' %></td>
                 <td class="td_vertical_align_middle"><%= select_tag 'schedule_type[' + int.to_s + ']',  options_for_select(["毎日", "平日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日", "日曜日"], tg.schedule_type), class:'form-control' %></td>
                 <% if tg.set_time != nil then %>
                 <td class="td_vertical_align_middle form-inline"><%= time_select 'set_time[' + int.to_s + ']', nil, {minute_step: 5, :default => {:hour => tg.set_time.hour, :minute => tg.set_time.min}} , class:'form-control', style:'width:70px;' %></td>

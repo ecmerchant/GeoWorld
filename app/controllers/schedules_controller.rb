@@ -10,6 +10,7 @@ class SchedulesController < ApplicationController
       stype = params[:schedule_type]
       stime = params[:set_time]
       ltype = params[:list_type]
+      lnum = params[:list_num]
 
       for int in 1..10 do
         logger.debug(int)
@@ -21,6 +22,7 @@ class SchedulesController < ApplicationController
           tt = stime[int.to_s].values
           tag.update(
             list_type: ltype[int.to_s],
+            list_num: lnum[int.to_s].to_i,
             schedule_type: stype[int.to_s],
             set_time: Time.new(tt[0].to_i, tt[1].to_i, tt[2].to_i, tt[3].to_i, tt[4].to_i)
           )
