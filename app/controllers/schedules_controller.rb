@@ -48,8 +48,6 @@ class SchedulesController < ApplicationController
       http.use_ssl = true
       req = Net::HTTP::Delete.new(uri, api_header)
       res = http.request(req)
-      res = JSON.parse(res)
-      logger.debug(res)
 
       redirect_to schedules_setup_path
     end
