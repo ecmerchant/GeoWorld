@@ -1,5 +1,8 @@
 class SchedulesController < ApplicationController
 
+  require 'net/https'
+  require "uri"
+
   def setup
     @login_user = current_user
     user = current_user.email
@@ -28,6 +31,26 @@ class SchedulesController < ApplicationController
           )
         #end
       end
+
+      #Heroku APIでclock processを再起動
+      api_key = ENV['HEROKU_API_KEY']
+      endpoint = 'https://api.heroku.com/apps/'
+      url = endpoint + 'geo-world/dynos/clock.1'
+
+      api_header = {
+        'Authorization': 'Bearer ' + api_key,
+        'Accept': 'application/vnd.heroku+json; version=3',
+        'Content-Type': 'application/json'
+      }
+
+      uri = URI(url)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
+      req = Net::HTTP::Delete.new(uri, api_header)
+      res = http.request(req)
+      res = JSON.parse(res)
+      logger.debug(res)
+
       redirect_to schedules_setup_path
     end
   end
